@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title><%= title %></title>
+
+	<!--[if lt IE9]> 
+		<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+
+	<section id="danmu">
+		
+
+	</section>
+	<div class="send">
+		<form action="" id="submit">
+			<input type="text" class="left" id="msg" placeholder="please input words">
+			<input class="submit right" type="submit" value="send">
+		</form>
+		
+	</div>
+</body>
+</html>
+
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script>
+	$(document).ready(function() {
+
+		var socket = io();
+
+		$("#submit").submit(function() {
+			var width = $("#danmu").width();
+			var height = $("#danmu").height();
+
+			var msg = $("#msg").val();
+			var color = "#000";
+			var size = "1.5em";
+
+			var top = (function() {
+				var t = Math.random() * height;
+				return t > height - 30 ? height - 40 : t;
+			}());
+			var left = (function() {
+				return width + 5;
+			}());
+			var id = (function() {
+				var text = "";
+			    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			    for ( var i = 0; i < 32; i++ ) {
+			        text += possible.charAt(Math.floor(Math.random() * possible.length));
+			    }
+			    return text;
+			}());
+
+			var content = "<span class='" + id + "' style='top:" + top + "px; color:" + color + "; left:" + left + "px; font-size:" + size + ";'>" + msg + "</span>";
+
+			var w = $("#danmu ." + id).width() + $("#danmu").offset().left;
+
+			socket.emit('chat', content, id, w);
+/*
+			$("#danmu").append(content);
+
+			var w = $("#danmu ." + id).width() + 10;
+			$("#danmu ."+ id).animate({left: "-" + w + "px"}, 3000, function() {
+				$(this).remove();
+			});
+*/
+			return false;
+		});
+
+		socket.on('chat', function(msg, id, w) {
+		  	$("#danmu").append(msg);
+
+			$("#danmu ."+ id).animate({left: "-" + w + "px"}, 3000, function() {
+				$(this).remove();
+			});
+      	});
+
+	});  
+
+</script>

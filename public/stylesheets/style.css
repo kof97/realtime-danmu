@@ -1,0 +1,18 @@
+* { margin: 0; padding: 0; }
+
+html { width: 100%; }
+body { width: 600px; margin: 0 auto; }
+input { border: solid 1px #CDD7E2; }
+
+.left { float: left; }
+.right { float: right; }
+
+section { position: relative; overflow: hidden; display: inline-block; width: 100%; height: 20em; box-shadow: 2px 2px 1px #888888; border: solid 1px #CDD7E2; }
+
+span { position: absolute; z-index: -1; }
+
+
+.send { width: 100%; margin: 5px 0; }
+.send input { height: 1.4em; font-size: 1.2em; }
+.send #msg { width: 80%; }
+.send .submit { height: 1.5em; width: 18%; }
