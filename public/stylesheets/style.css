@@ -9,10 +9,14 @@ input { border: solid 1px #CDD7E2; }
 
 section { position: relative; overflow: hidden; display: inline-block; width: 100%; height: 20em; box-shadow: 2px 2px 1px #888888; border: solid 1px #CDD7E2; }
 
-span { position: absolute; z-index: -1; }
+span { position: absolute; display: inline-block; font-weight: bold; }
 
 
 .send { width: 100%; margin: 5px 0; }
-.send input { height: 1.4em; font-size: 1.2em; }
-.send #msg { width: 80%; }
-.send .submit { height: 1.5em; width: 18%; }
+.send input { height: 1.4em; font-size: 1.2em; margin: 4px 0; vertical-align: middle; }
+
+.send #data-size { width: 3.5em; height: 2em; }
+.send #data-color {  }
+.send #data-msg { width: 21em; padding: 2px 0; }
+
+.send .submit { height: 1.7em; width: 4em; }

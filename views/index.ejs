@@ -18,7 +18,13 @@
 	</section>
 	<div class="send">
 		<form action="" id="submit">
-			<input type="text" class="left" id="msg" placeholder="please input words">
+			<select id="data-size">
+				<% for (var i = 20; i <= 40; i += 4) { %>
+			   		<option value ="<%= i %>"><%= i %></option>
+				<% } %>
+			</select>
+			<input type="color" id="data-color">
+			<input type="text" id="data-msg" placeholder="please input words">
 			<input class="submit right" type="submit" value="send">
 		</form>
 		
@@ -26,8 +32,8 @@
 </body>
 </html>
 
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="//cdn.bootcss.com/socket.io/1.4.6/socket.io.min.js"></script>
+<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 <script>
 	$(document).ready(function() {
 
@@ -37,9 +43,9 @@
 			var width = $("#danmu").width();
 			var height = $("#danmu").height();
 
-			var msg = $("#msg").val();
-			var color = "#000";
-			var size = "1.5em";
+			var msg = $("#data-msg").val();
+			var color = $("#data-color").val();
+			var size = $("#data-size").val() + "px";
 
 			var top = (function() {
 				var t = Math.random() * height;
@@ -57,26 +63,19 @@
 			    return text;
 			}());
 
-			var content = "<span class='" + id + "' style='top:" + top + "px; color:" + color + "; left:" + left + "px; font-size:" + size + ";'>" + msg + "</span>";
+			var content = "<span id='" + id + "' style='top:" + top + "px; color:" + color + "; left:" + left + "px; font-size:" + size + ";'>" + msg + "</span>";
 
-			var w = $("#danmu ." + id).width() + $("#danmu").offset().left;
+			var w = width * 1.5;
 
 			socket.emit('chat', content, id, w);
-/*
-			$("#danmu").append(content);
 
-			var w = $("#danmu ." + id).width() + 10;
-			$("#danmu ."+ id).animate({left: "-" + w + "px"}, 3000, function() {
-				$(this).remove();
-			});
-*/
 			return false;
 		});
 
 		socket.on('chat', function(msg, id, w) {
 		  	$("#danmu").append(msg);
 
-			$("#danmu ."+ id).animate({left: "-" + w + "px"}, 3000, function() {
+			$("#danmu #"+ id).animate({left: "-" + w + "px"}, 6000, function() {
 				$(this).remove();
 			});
       	});
