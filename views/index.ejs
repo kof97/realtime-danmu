@@ -24,7 +24,7 @@
 				<% } %>
 			</select>
 			<input type="color" id="data-color">
-			<input type="text" id="data-msg" placeholder="please input words">
+			<input type="text" id="data-msg" placeholder="please input words" required>
 			<input class="submit right" type="submit" value="send">
 		</form>
 		
@@ -68,6 +68,8 @@
 			var w = width * 1.5;
 
 			socket.emit('chat', content, id, w);
+
+			$("#data-msg").val("");
 
 			return false;
 		});
